@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeBanking", "DogeBanking\DogeBanking.csproj", "{E2027C55-EF06-4B64-A8B2-539A36F74BFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2027C55-EF06-4B64-A8B2-539A36F74BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2027C55-EF06-4B64-A8B2-539A36F74BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2027C55-EF06-4B64-A8B2-539A36F74BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2027C55-EF06-4B64-A8B2-539A36F74BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B6D3D3E-DE0E-4098-A8F3-64F2484274EC}
+	EndGlobalSection
+EndGlobal

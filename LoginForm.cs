@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Sql;
-using System.Data.OleDb;
-using System.Data.SqlClient;
+//using System.Data.Sql;
+//using System.Data.OleDb;
+//using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Data.SqlTypes;
-
+using MySql.Data.Entity;
 
 
 
@@ -27,22 +28,23 @@ namespace DogeBanking
         {
             InitializeComponent();
 
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=localhost;Initial Catalog=dogebank;User ID=root;Password=olejnid";
+            //SqlConnection con = new SqlConnection();
+            //con.ConnectionString = "Data Source=localhost:3306;Initial Catalog=dogebank;User ID=root;Password=";
 
 
 
 
         }
+        
+        MySqlConnection connection = new MySqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root; Password=;");
 
-        SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root;Password=olejnid");
-
-        SqlDataAdapter adapter;
+        MySqlDataAdapter adapter;
         DataTable table = new DataTable();
 
+        
 
 
-
+   
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -94,12 +96,15 @@ namespace DogeBanking
             string password = textBox2.Text;
 
 
-            adapter = new SqlDataAdapter("SELECT Username, psw FROM users WHERE name = '" + username + " AND psw = " + password + "'", connection);
+            adapter = new MySqlDataAdapter("SELECT Username, psw FROM users WHERE Username = '" + username + "' AND psw = '" + password + "'", connection);
 
-                                                         
-            // MessageBox.Show(textBox1.ToString());
-            Console.WriteLine(table);
+           // string test_str = "input: " + username + " " + password ;
+
+           // MessageBox.Show(test_str);
+
+           // Console.WriteLine(table);
             adapter.Fill(table);
+
 
             if (table.Rows.Count <= 0)
             {
@@ -108,10 +113,11 @@ namespace DogeBanking
 
             else
             {
-
-                //Application.Run(new AdminArea());
+                 
+                
                 this.Hide();
-                MainPage mainpage = new MainPage();
+                table.Clear();
+                MainPage mainpage = new MainPage(username);
                 mainpage.ShowDialog();
 
             }
@@ -137,6 +143,11 @@ namespace DogeBanking
             {
                 connection.Close();
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
