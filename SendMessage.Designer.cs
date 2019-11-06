@@ -32,11 +32,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Send_button = new System.Windows.Forms.Button();
             this.reciver_lable = new System.Windows.Forms.Label();
-            this.Important = new System.Windows.Forms.CheckBox();
+            this.FlagBox = new System.Windows.Forms.CheckBox();
             // 
             // MessageRead
             // 
-            this.MessageRead.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.MessageRead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.MessageRead.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.MessageRead.Location = new System.Drawing.Point(104, 46);
             this.MessageRead.Multiline = true;
             this.MessageRead.Name = "MessageRead";
@@ -48,13 +49,14 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.textBox1.Location = new System.Drawing.Point(104, 364);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "Your Message";
             this.textBox1.Size = new System.Drawing.Size(499, 62);
             this.textBox1.TabIndex = 1;
-            this.textBox1.UseWaitCursor = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Send_button
@@ -70,6 +72,7 @@
             // reciver_lable
             // 
             this.reciver_lable.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.reciver_lable.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.reciver_lable.Location = new System.Drawing.Point(104, -2);
             this.reciver_lable.Name = "reciver_lable";
             this.reciver_lable.Size = new System.Drawing.Size(482, 45);
@@ -77,25 +80,28 @@
             this.reciver_lable.Text = "label1";
             this.reciver_lable.Click += new System.EventHandler(this.reciver_lable_Click);
             // 
-            // Important
+            // FlagBox
             // 
-            this.Important.AutoSize = true;
-            this.Important.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Important.Location = new System.Drawing.Point(687, 372);
-            this.Important.Name = "Important";
-            this.Important.Size = new System.Drawing.Size(82, 48);
-            this.Important.TabIndex = 4;
-            this.Important.Text = "Flag Message\r\nas Important";
-            this.Important.UseVisualStyleBackColor = true;
-            this.Important.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.FlagBox.AutoSize = true;
+            this.FlagBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.FlagBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.FlagBox.ForeColor = System.Drawing.Color.White;
+            this.FlagBox.Location = new System.Drawing.Point(687, 364);
+            this.FlagBox.Name = "FlagBox";
+            this.FlagBox.Size = new System.Drawing.Size(87, 48);
+            this.FlagBox.TabIndex = 4;
+            this.FlagBox.Text = "Mark Message\r\nas Urgent";
+            this.FlagBox.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.FlagBox.UseVisualStyleBackColor = false;
+            this.FlagBox.CheckedChanged += new System.EventHandler(this.FlagBox_CheckedChanged);
             // 
             // SendMessage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Important);
+            this.Controls.Add(this.FlagBox);
             this.Controls.Add(this.reciver_lable);
             this.Controls.Add(this.Send_button);
             this.Controls.Add(this.textBox1);
@@ -111,6 +117,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Send_button;
         private System.Windows.Forms.Label reciver_lable;
-        private System.Windows.Forms.CheckBox Important;
+        private System.Windows.Forms.CheckBox FlagBox;
     }
 }

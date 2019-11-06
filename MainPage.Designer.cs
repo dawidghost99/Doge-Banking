@@ -33,9 +33,10 @@
             // 
             // Username_display
             // 
-            this.Username_display.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.Username_display.BackColor = System.Drawing.SystemColors.ControlText;
             this.Username_display.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Username_display.Location = new System.Drawing.Point(11, 8);
+            this.Username_display.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.Username_display.Location = new System.Drawing.Point(14, 6);
             this.Username_display.Name = "Username_display";
             this.Username_display.Size = new System.Drawing.Size(112, 38);
             this.Username_display.TabIndex = 0;
@@ -44,7 +45,9 @@
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.listBox1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.listBox1.ForeColor = System.Drawing.SystemColors.InfoText;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 28;
             this.listBox1.Location = new System.Drawing.Point(172, 48);
@@ -57,7 +60,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BackColor = System.Drawing.SystemColors.ControlText;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.Username_display);

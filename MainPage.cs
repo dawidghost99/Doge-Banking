@@ -31,6 +31,7 @@ namespace DogeBanking
 
             adapter = new MySqlDataAdapter("SELECT Username FROM users", connection);
 
+           
             // string test_str = "input: " + username + " " + password ;
 
             // MessageBox.Show(test_str);

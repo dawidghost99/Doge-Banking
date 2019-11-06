@@ -32,21 +32,73 @@ namespace DogeBanking
             //con.ConnectionString = "Data Source=localhost:3306;Initial Catalog=dogebank;User ID=root;Password=";
 
 
+            Image image = Image.FromFile("dogelogo.jpg");
+            Logo.Image = image;
+            Delete();
+
+        }
+        DataTable DeleteTable = new DataTable();
+        MySqlConnection connection = new MySqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root; Password=;convert zero datetime=True");
+
+       MySqlDataAdapter adapter;
+       DataTable table = new DataTable();
+
+        private void Delete() {
+
+
+
+
+            string Query = "select ID, Date_sent from comments";
+            connection.Open();
+            MySqlCommand cmd = new MySqlCommand(Query, connection);
+            MySqlDataReader dr = cmd.ExecuteReader();
+            List<int> Delete_comments_ID = new List<int>();
+
+            DateTime Today = DateTime.Now;
+            DateTime expiration = Today.AddMonths(-6);
+
+            while (dr.Read())
+            {
+                int ID = (int)dr["ID"];
+                DateTime date_sent = (DateTime)dr["Date_sent"];
+
+                int expirationdate = DateTime.Compare(expiration, date_sent);
+
+                if (expirationdate > 0)
+                {
+
+
+                
+                    Delete_comments_ID.Add(ID);
+
+                }
+
+
+            }
+            dr.Close();
+
+            for (var i = 0; i < Delete_comments_ID.Count; i++)
+            {
+
+                MySqlCommand Delete = new MySqlCommand("Delete from comments where ID = '" + Delete_comments_ID[i] + "' and Important = '0'", connection);
+                Delete.ExecuteNonQuery();
+
+
+            }
+
+
+
+
 
 
         }
-        
-        MySqlConnection connection = new MySqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root; Password=;");
-
-        MySqlDataAdapter adapter;
-        DataTable table = new DataTable();
-
-        
 
 
-   
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+
 
         }
 
@@ -146,6 +198,11 @@ namespace DogeBanking
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Logo_Click(object sender, EventArgs e)
         {
 
         }

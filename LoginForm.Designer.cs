@@ -35,8 +35,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.Logo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             // 
             // textBox1
             // 
@@ -49,6 +49,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(13, 308);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 15);
@@ -59,6 +60,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label3.Location = new System.Drawing.Point(16, 386);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 15);
@@ -105,20 +107,20 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // pictureBox1
+            // Logo
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(82, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(259, 246);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.Logo.Location = new System.Drawing.Point(82, 17);
+            this.Logo.Name = "Logo";
+            this.Logo.Size = new System.Drawing.Size(259, 255);
+            this.Logo.TabIndex = 8;
+            this.Logo.TabStop = false;
+            this.Logo.Click += new System.EventHandler(this.Logo_Click);
             // 
             // LoginForm
             // 
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(415, 631);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Logo);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -128,7 +130,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "LoginForm";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
 
         }
 
@@ -140,7 +142,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Logo;
     }
 }
 
