@@ -1,49 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+using System.Security.Cryptography;
+
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Data.SqlTypes;
-using MySql.Data.Entity;
+
 
 
 
 namespace DogeBanking
 {
-    //private Connection connectionCS = new Connection();
+  
 
     public partial class SendMessage : Form
     {
+
+
+        
         public string recivertext;
         public string sendertext;
-        DataTable SendTable = new DataTable();
-        //DataTable ReadTable = new DataTable();
 
 
         MySqlConnection connection = new MySqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root; Password=;  convert zero datetime=True");
-        MySqlDataAdapter Send;
-        
-        
+
         public SendMessage(string Sender, string Reciver)
         {
             InitializeComponent();
-
-
+            textBox1.Focus();
+            textBox1.Select(0, 0);
             reciver_lable.Text = "Send to: " + Reciver;
-             sendertext = Sender;
+            sendertext = Sender;
             recivertext = Reciver;
             MessageRead.ScrollBars = ScrollBars.Both;
+            
 
-            readmessages();
-           
+
+            InitTimer();
+
 
         }
 
+        private System.Windows.Forms.Timer timer1;
+
+        public void InitTimer()
+        {
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // in miliseconds
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            readmessages();
+            
+        }
+
+
         private void readmessages() {
             MessageRead.Clear();
+            MessageRead.ScrollToCaret();
             string Read_Query = "select * from comments where Sender_ID = '" + sendertext + "' and Reciver_ID = '" + recivertext + "' or Sender_ID = '"+recivertext+"' and Reciver_ID = '"+sendertext +"' ";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(Read_Query, connection);
@@ -53,29 +68,43 @@ namespace DogeBanking
             DateTime today = DateTime.Now;
 
 
+            string text;
 
-
-            while (dr.Read())
+            while (dr.Read())   
             {
               
-                if (dr["Important"].ToString() == "1") {
-                    MessageRead.Text += "!!!";
-                   // MessageRead.BackColor = Color.Red;
-                }
-                //MessageRead.BackColor = Color.Red;
+
+
                 DateTime date_sent = (DateTime)dr["Date_sent"];
-                MessageRead.Text += date_sent.ToString("HH:mm:ss");
+                MessageRead.Text += date_sent.ToString("dddd HH:mm");
                 MessageRead.Text += ": ";
                 MessageRead.Text += dr["Sender_ID"].ToString();
                 MessageRead.Text += ": ";
-                MessageRead.Text += dr["message"].ToString();
-                MessageRead.Text += "\r\n";
-              
+                if (dr["Important"].ToString() == "1")
+                {
+                    MessageRead.Text += "<<<IMPORTANT>>>";
+
+                }
+               string message  = dr["message"].ToString();
+  
+
+
+                using (Aes myAes = Aes.Create())
+                  {
+             
+                      text = SendClass.Decrypt(message);
+                  }
+
+                MessageRead.Text += text.ToString();
+  
+                if (dr["Important"].ToString() == "1")
+                {
+                    MessageRead.Text += "<<<IMPORTANT>>>";
+
+                }
+                MessageRead.Text += (Environment.NewLine);
+               
             }
-
-
-           // MessageRead.Text += "test \r\n";
-
 
             connection.Close();
 
@@ -86,17 +115,18 @@ namespace DogeBanking
         {
             
 
-            // Read = new MySqlDataAdapter("select * from comments where Sender_ID = '" + sendertext + "' and Reciver_ID = ' " +recivertext+ "' ", connection);
-            // Read.Fill(ReadTable);
-
 
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
+               
+            
         }
+
+
  
 
         private void Send_button_Click(object sender, EventArgs e)
@@ -104,21 +134,21 @@ namespace DogeBanking
 
           
             DateTime today = DateTime.Now;
-           // MessageBox.Show(today.ToString());
             int checkbox = 0 ;
+            string encrypted_message;
             string message = textBox1.Text;
 
+            using (Aes myAes = Aes.Create())
+            {
 
-           
-          string strtoday = today.ToString("yyyy-MM-dd HH:mm:ss tt");
-
+                encrypted_message = SendClass.Encrypt(message);
+            }
+            
+            
+            string strtoday = today.ToString("yyyy-MM-dd HH:mm:ss tt");
 
             if (FlagBox.Checked) {
-
-
                 checkbox = 1;
-
-
             }
 
             if (string.IsNullOrEmpty(this.textBox1.Text))
@@ -130,10 +160,16 @@ namespace DogeBanking
             else
             {
                 connection.Open();
-                Send = new MySqlDataAdapter("Insert into comments(Sender_ID,Reciver_ID, Message,Important ,Date_sent) values ('" + sendertext + "' , '" + recivertext + "' , '" + message + "' , '" + checkbox + "' ,  '" + strtoday + "') ", connection);
+                MySqlCommand comm = connection.CreateCommand();
+                comm.CommandText = "INSERT INTO comments(Sender_ID,Reciver_ID, Message,Important ,Date_sent) VALUES(?sendertext, ?recivertext, ?encrypted_message, ?checkbox, ?date)";
+                comm.Parameters.AddWithValue("?sendertext", sendertext);
+                comm.Parameters.AddWithValue("?recivertext", recivertext);
+                comm.Parameters.AddWithValue("?encrypted_message", encrypted_message);
+          
+                comm.Parameters.AddWithValue("?checkbox", checkbox);
+                comm.Parameters.AddWithValue("?date", strtoday);
+                comm.ExecuteNonQuery();
 
-
-                Send.Fill(SendTable);
                 connection.Close();
             }
 
@@ -145,12 +181,12 @@ namespace DogeBanking
         }
         private void reciver_lable_Click(object sender, EventArgs e)
         {
-
         }
 
         private void FlagBox_CheckedChanged(object sender, EventArgs e)
         {
 
         }
+
     }
 }

@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Data.SqlTypes;
 using MySql.Data.Entity;
+using System.IO;
+using System.Security.Cryptography;
 
 
 
@@ -44,10 +46,6 @@ namespace DogeBanking
        DataTable table = new DataTable();
 
         private void Delete() {
-
-
-
-
             string Query = "select ID, Date_sent from comments";
             connection.Open();
             MySqlCommand cmd = new MySqlCommand(Query, connection);
@@ -86,13 +84,7 @@ namespace DogeBanking
 
             }
 
-
-
-
-
-
         }
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -128,8 +120,6 @@ namespace DogeBanking
         }
 
 
-
-
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -139,25 +129,45 @@ namespace DogeBanking
         {
 
         }
+        static string SHA512h(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA512 sHash = SHA512.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sHash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-
             string username = textBox1.Text;
             string password = textBox2.Text;
+            string salted = ("EzLQQvNebP" + password + "8bH74LNo1M");
+            string hashedPassword = SHA512h(salted);
+       
+            MySqlCommand comm = connection.CreateCommand();
+            comm = new MySqlCommand("SELECT Username, psw FROM users WHERE Username=@val1 AND psw=@val2", connection);
+            comm.Parameters.AddWithValue("@val1", username);
+            comm.Parameters.AddWithValue("@val2", hashedPassword);
+            comm.Prepare();
 
 
-            adapter = new MySqlDataAdapter("SELECT Username, psw FROM users WHERE Username = '" + username + "' AND psw = '" + password + "'", connection);
+            MySqlDataAdapter dap = new MySqlDataAdapter();
+            dap.SelectCommand = comm;
+            
+            dap.Fill(table);
+           
 
-           // string test_str = "input: " + username + " " + password ;
-
-           // MessageBox.Show(test_str);
-
-           // Console.WriteLine(table);
-            adapter.Fill(table);
-
-
+        
             if (table.Rows.Count <= 0)
             {
                 MessageBox.Show("Invalid Username Or Password");
@@ -179,23 +189,6 @@ namespace DogeBanking
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                connection.Open();
-                MessageBox.Show("Connection Open ! ");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Can not open connection ! ");
-                MessageBox.Show(ex.Message); //shows what error actually occurs
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

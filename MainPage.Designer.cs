@@ -36,9 +36,9 @@
             this.Username_display.BackColor = System.Drawing.SystemColors.ControlText;
             this.Username_display.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Username_display.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Username_display.Location = new System.Drawing.Point(14, 6);
+            this.Username_display.Location = new System.Drawing.Point(2, 2);
             this.Username_display.Name = "Username_display";
-            this.Username_display.Size = new System.Drawing.Size(112, 38);
+            this.Username_display.Size = new System.Drawing.Size(168, 74);
             this.Username_display.TabIndex = 0;
             this.Username_display.Text = "label1";
             this.Username_display.Click += new System.EventHandler(this.label1_Click);
@@ -50,7 +50,7 @@
             this.listBox1.ForeColor = System.Drawing.SystemColors.InfoText;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 28;
-            this.listBox1.Location = new System.Drawing.Point(172, 48);
+            this.listBox1.Location = new System.Drawing.Point(176, 52);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(443, 340);
             this.listBox1.TabIndex = 1;
