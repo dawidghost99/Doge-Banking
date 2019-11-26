@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-//using System.Data.Sql;
-//using System.Data.OleDb;
-//using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
-using System.Data.SqlTypes;
-using MySql.Data.Entity;
-using System.IO;
 using System.Security.Cryptography;
 
 
@@ -30,19 +21,16 @@ namespace DogeBanking
         {
             InitializeComponent();
 
-            //SqlConnection con = new SqlConnection();
-            //con.ConnectionString = "Data Source=localhost:3306;Initial Catalog=dogebank;User ID=root;Password=";
-
-
+         
             Image image = Image.FromFile("dogelogo.jpg");
             Logo.Image = image;
             Delete();
 
         }
-        DataTable DeleteTable = new DataTable();
+        
         MySqlConnection connection = new MySqlConnection("Data Source=localhost;Initial Catalog=dogebank;User ID=root; Password=;convert zero datetime=True");
 
-       MySqlDataAdapter adapter;
+      
        DataTable table = new DataTable();
 
         private void Delete() {
